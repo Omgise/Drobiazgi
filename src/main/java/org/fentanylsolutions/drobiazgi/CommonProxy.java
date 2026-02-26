@@ -1,7 +1,5 @@
 package org.fentanylsolutions.drobiazgi;
 
-import org.fentanylsolutions.drobiazgi.config.CompassConfig;
-
 import com.gtnewhorizon.gtnhlib.config.ConfigException;
 import com.gtnewhorizon.gtnhlib.config.ConfigurationManager;
 
@@ -16,12 +14,12 @@ public class CommonProxy {
     // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
         try {
-            ConfigurationManager.registerConfig(CompassConfig.class);
+            ConfigurationManager.registerConfig(Config.class);
         } catch (ConfigException e) {
             throw new RuntimeException("Failed to load Drobiazgi config", e);
         }
 
-        CompassConfig.postConfiguration();
+        Config.postConfiguration();
         Drobiazgi.LOG.info("I am Drobiazgi at version {}", Tags.VERSION);
     }
 

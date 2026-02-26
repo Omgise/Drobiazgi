@@ -1,4 +1,4 @@
-package org.fentanylsolutions.drobiazgi.config;
+package org.fentanylsolutions.drobiazgi.compass;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -7,52 +7,22 @@ import java.util.Set;
 
 import net.minecraft.world.World;
 
+import org.fentanylsolutions.drobiazgi.Config;
 import org.fentanylsolutions.drobiazgi.Drobiazgi;
 import org.fentanylsolutions.fentlib.FentLib;
 import org.fentanylsolutions.fentlib.util.DimensionUtil;
 import org.fentanylsolutions.fentlib.util.DimensionUtil.SimpleDimensionObj;
 
-import com.gtnewhorizon.gtnhlib.config.Config;
+public final class CompassRules {
 
-@Config(modid = Drobiazgi.MODID, category = "compass")
-public final class CompassConfig {
-
-    @Config.Comment({ "Dimension list used by the compass filter.",
-        "Accepted values: numeric IDs (example: \"0\", \"-1\") or exact dimension names from FentLib's DimensionUtil.",
-        "Name values are resolved once dimension providers are available." })
-    @Config.DefaultStringList({ "0" })
-    @Config.Sync
-    public static String[] dimensions = new String[] { "0" };
-
-    @Config.Comment({
-        "If true, the dimension list acts as a blacklist and compass north mode is disabled in listed dimensions.",
-        "If false, the list acts as a whitelist and compass north mode is enabled only in listed dimensions." })
-    @Config.DefaultBoolean(false)
-    @Config.Sync
-    public static boolean useDimensionBlacklist = false;
-
-    @Config.Comment("Enable compass north modification. If false, vanilla compass behavior is used.")
-    @Config.DefaultBoolean(false)
-    @Config.Sync
-    public static boolean enableCompassModification = false;
-
-    @Config.Ignore
     private static volatile Set<Integer> parsedDimensionIds = Collections.emptySet();
-
-    @Config.Ignore
     private static volatile int parsedConfigHash = Integer.MIN_VALUE;
-
-    @Config.Ignore
     private static volatile boolean parsedWithProviders = false;
 
-    private CompassConfig() {}
-
-    public static void postConfiguration() {
-        reloadParsedDimensions();
-    }
+    private CompassRules() {}
 
     public static boolean isCompassEnabledForWorld(World world) {
-        if (!enableCompassModification) {
+        if (!Config.enableCompassModification) {
             return false;
         }
 
@@ -64,22 +34,17 @@ public final class CompassConfig {
     }
 
     public static boolean isCompassEnabledForDimension(int dimensionId) {
-        if (!enableCompassModification) {
+        if (!Config.enableCompassModification) {
             return false;
         }
 
         ensureParsedDimensions();
         boolean listed = parsedDimensionIds.contains(Integer.valueOf(dimensionId));
-        return useDimensionBlacklist ? !listed : listed;
+        return Config.compassUseDimensionBlacklist ? !listed : listed;
     }
 
-    public static Set<Integer> getParsedDimensionIds() {
-        ensureParsedDimensions();
-        return parsedDimensionIds;
-    }
-
-    public static synchronized void reloadParsedDimensions() {
-        String[] configuredDimensions = dimensions != null ? dimensions : new String[0];
+    public static synchronized void reloadFromConfig() {
+        String[] configuredDimensions = Config.compassDimensions != null ? Config.compassDimensions : new String[0];
         boolean providersReady = areDimensionProvidersReady();
         Set<Integer> resolvedDimensionIds = new HashSet<Integer>();
 
@@ -101,15 +66,21 @@ public final class CompassConfig {
 
         parsedDimensionIds = Collections.unmodifiableSet(resolvedDimensionIds);
         parsedWithProviders = providersReady;
-        parsedConfigHash = computeConfigHash(configuredDimensions, useDimensionBlacklist);
+        parsedConfigHash = computeConfigHash(
+            configuredDimensions,
+            Config.compassUseDimensionBlacklist,
+            Config.enableCompassModification);
     }
 
     private static void ensureParsedDimensions() {
-        String[] configuredDimensions = dimensions != null ? dimensions : new String[0];
-        int configHash = computeConfigHash(configuredDimensions, useDimensionBlacklist);
+        String[] configuredDimensions = Config.compassDimensions != null ? Config.compassDimensions : new String[0];
+        int configHash = computeConfigHash(
+            configuredDimensions,
+            Config.compassUseDimensionBlacklist,
+            Config.enableCompassModification);
         boolean providersReady = areDimensionProvidersReady();
         if (configHash != parsedConfigHash || (!parsedWithProviders && providersReady)) {
-            reloadParsedDimensions();
+            reloadFromConfig();
         }
     }
 
@@ -122,7 +93,7 @@ public final class CompassConfig {
 
             return Integer.valueOf(dimensionId);
         } catch (NumberFormatException ignored) {
-            // Not an id, fall through to name lookup.
+            // Not an id, try by name.
         }
 
         if (!providersReady) {
@@ -142,7 +113,10 @@ public final class CompassConfig {
         return FentLib.varInstanceCommon != null && FentLib.varInstanceCommon.providers != null;
     }
 
-    private static int computeConfigHash(String[] configuredDimensions, boolean isBlacklist) {
-        return (31 * Arrays.hashCode(configuredDimensions)) + (isBlacklist ? 1 : 0);
+    private static int computeConfigHash(String[] configuredDimensions, boolean useBlacklist, boolean enabled) {
+        int hash = Arrays.hashCode(configuredDimensions);
+        hash = (31 * hash) + (useBlacklist ? 1 : 0);
+        hash = (31 * hash) + (enabled ? 1 : 0);
+        return hash;
     }
 }
