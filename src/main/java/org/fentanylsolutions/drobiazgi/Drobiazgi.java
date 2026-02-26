@@ -16,6 +16,7 @@ public class Drobiazgi {
     public static final String MODID = "drobiazgi";
     public static final String MODGROUP = "org.fentanylsolutions";
     public static final Logger LOG = LogManager.getLogger(MODID);
+    private static final boolean ENV_DEBUG_MODE = System.getenv("MCMODDING_DEBUG_MODE") != null;
 
     @SidedProxy(
         clientSide = MODGROUP + "." + MODID + ".ClientProxy",
@@ -45,5 +46,15 @@ public class Drobiazgi {
     // register server commands in this event handler (Remove if not needed)
     public void serverStarting(FMLServerStartingEvent event) {
         proxy.serverStarting(event);
+    }
+
+    public static boolean isDebugMode() {
+        return ENV_DEBUG_MODE || Config.debugMode;
+    }
+
+    public static void debug(String message) {
+        if (isDebugMode()) {
+            LOG.info("DEBUG: {}", message);
+        }
     }
 }

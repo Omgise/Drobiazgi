@@ -27,6 +27,10 @@ public final class Config {
     @Sync
     public static boolean enableCompassModification = false;
 
+    @Comment("Enable debug logging for this mod.")
+    @DefaultBoolean(false)
+    public static boolean debugMode = false;
+
     private Config() {}
 
     public static void postConfiguration() {
