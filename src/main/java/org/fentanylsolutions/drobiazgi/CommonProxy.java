@@ -1,5 +1,10 @@
 package org.fentanylsolutions.drobiazgi;
 
+import org.fentanylsolutions.drobiazgi.config.CompassConfig;
+
+import com.gtnewhorizon.gtnhlib.config.ConfigException;
+import com.gtnewhorizon.gtnhlib.config.ConfigurationManager;
+
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -10,10 +15,14 @@ public class CommonProxy {
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
-        Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
+        try {
+            ConfigurationManager.registerConfig(CompassConfig.class);
+        } catch (ConfigException e) {
+            throw new RuntimeException("Failed to load Drobiazgi config", e);
+        }
 
-        Drobiazgi.LOG.info(Config.greeting);
-        Drobiazgi.LOG.info("I am MyMod at version " + Tags.VERSION);
+        CompassConfig.postConfiguration();
+        Drobiazgi.LOG.info("I am Drobiazgi at version {}", Tags.VERSION);
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
