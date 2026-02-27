@@ -42,7 +42,9 @@ dependencies {
     implementation("com.github.GTNewHorizons:GTNHLib:0.9.19:dev")
     implementation("org.fentanylsolutions.fentlib:FentLib:0.0.42")
 
-    implementation(rfg.deobf("curse.maven:doggy-talents-271050:2520348"))
-    implementation(rfg.deobf("curse.maven:itemphysic-1-7-10-unofficial-1113039:7512507"))
-    runtimeOnlyNonPublishable("com.creativemd:creativecore:1.4.0-GTNH:dev")
+    compileOnly(rfg.deobf("curse.maven:doggy-talents-271050:2520348"))
+    // implementation(rfg.deobf("curse.maven:itemphysic-1-7-10-unofficial-1113039:7512507"))
+    // runtimeOnlyNonPublishable("com.creativemd:creativecore:1.4.0-GTNH:dev")
+
+    implementation(rfg.deobf("curse.maven:custom-npcs-221826:2495406"))
 }

@@ -27,6 +27,12 @@ public class Mixins extends FentMixins {
             .phase(MixinUtil.Phase.EARLY)
             .build();
 
+        // CustomNPCs Mixins
+        registry.mixin("MixinNPCSpawning")
+            .modid("customnpcs")
+            .phase(MixinUtil.Phase.EARLY)
+            .build();
+
         // Other Mixins
     }
 

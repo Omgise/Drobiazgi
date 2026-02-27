@@ -1,6 +1,7 @@
 package org.fentanylsolutions.drobiazgi;
 
 import org.fentanylsolutions.drobiazgi.compass.CompassRules;
+import org.fentanylsolutions.drobiazgi.customnpcs.CustomNpcSpawnRules;
 
 import com.gtnewhorizon.gtnhlib.config.Config.Comment;
 import com.gtnewhorizon.gtnhlib.config.Config.DefaultBoolean;
@@ -16,6 +17,7 @@ public final class Config {
 
     public static void postConfiguration() {
         CompassRules.reloadFromConfig();
+        CustomNpcSpawnRules.reloadFromConfig();
     }
 
     public static String[] getCompassDimensions() {
@@ -44,5 +46,41 @@ public final class Config {
 
     public static boolean isDoggyFetchLoopCompatFixEnabled() {
         return DoggyTalentsConfig.enableFetchLoopCompatFix;
+    }
+
+    public static boolean isCustomNpcsSpawningEnabled() {
+        return CustomNpcsSpawningConfig.enabled;
+    }
+
+    public static boolean shouldReplaceCustomNpcsWipSpawner() {
+        return CustomNpcsSpawningConfig.replaceCustomNpcsWipSpawner;
+    }
+
+    public static int getCustomNpcsSpawnTickInterval() {
+        return CustomNpcsSpawningConfig.tickInterval;
+    }
+
+    public static int getCustomNpcsAttemptsPerPlayerPerCycle() {
+        return CustomNpcsSpawningConfig.attemptsPerPlayerPerCycle;
+    }
+
+    public static int getCustomNpcsMaxNpcsPerDimension() {
+        return CustomNpcsSpawningConfig.maxNpcsPerDimension;
+    }
+
+    public static int getCustomNpcsMinPlayerDistance() {
+        return CustomNpcsSpawningConfig.minPlayerDistance;
+    }
+
+    public static int getCustomNpcsMaxPlayerDistance() {
+        return CustomNpcsSpawningConfig.maxPlayerDistance;
+    }
+
+    public static int getCustomNpcsMaxSpawnsPerCycle() {
+        return CustomNpcsSpawningConfig.maxSpawnsPerCycle;
+    }
+
+    public static String[] getCustomNpcsSpawnRules() {
+        return CustomNpcsSpawningConfig.rules;
     }
 }

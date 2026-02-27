@@ -1,8 +1,11 @@
 package org.fentanylsolutions.drobiazgi;
 
+import org.fentanylsolutions.drobiazgi.customnpcs.CustomNpcNaturalSpawner;
+
 import com.gtnewhorizon.gtnhlib.config.ConfigException;
 import com.gtnewhorizon.gtnhlib.config.ConfigurationManager;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -17,6 +20,7 @@ public class CommonProxy {
             ConfigurationManager.registerConfig(Config.class);
             ConfigurationManager.registerConfig(CompassConfig.class);
             ConfigurationManager.registerConfig(DoggyTalentsConfig.class);
+            ConfigurationManager.registerConfig(CustomNpcsSpawningConfig.class);
         } catch (ConfigException e) {
             throw new RuntimeException("Failed to load Drobiazgi config", e);
         }
@@ -26,7 +30,11 @@ public class CommonProxy {
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
-    public void init(FMLInitializationEvent event) {}
+    public void init(FMLInitializationEvent event) {
+        if (Loader.isModLoaded("customnpcs")) {
+            CustomNpcNaturalSpawner.register();
+        }
+    }
 
     // postInit "Handle interaction with other mods, complete your setup based on this." (Remove if not needed)
     public void postInit(FMLPostInitializationEvent event) {}
