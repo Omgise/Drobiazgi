@@ -15,6 +15,8 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         try {
             ConfigurationManager.registerConfig(Config.class);
+            ConfigurationManager.registerConfig(CompassConfig.class);
+            ConfigurationManager.registerConfig(DoggyTalentsConfig.class);
         } catch (ConfigException e) {
             throw new RuntimeException("Failed to load Drobiazgi config", e);
         }

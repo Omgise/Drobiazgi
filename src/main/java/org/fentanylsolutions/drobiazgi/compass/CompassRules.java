@@ -22,7 +22,7 @@ public final class CompassRules {
     private CompassRules() {}
 
     public static boolean isCompassEnabledForWorld(World world) {
-        if (!Config.enableCompassModification) {
+        if (!Config.isCompassModificationEnabled()) {
             return false;
         }
 
@@ -34,17 +34,20 @@ public final class CompassRules {
     }
 
     public static boolean isCompassEnabledForDimension(int dimensionId) {
-        if (!Config.enableCompassModification) {
+        if (!Config.isCompassModificationEnabled()) {
             return false;
         }
 
         ensureParsedDimensions();
         boolean listed = parsedDimensionIds.contains(Integer.valueOf(dimensionId));
-        return Config.compassUseDimensionBlacklist ? !listed : listed;
+        return Config.isCompassUseDimensionBlacklist() ? !listed : listed;
     }
 
     public static synchronized void reloadFromConfig() {
-        String[] configuredDimensions = Config.compassDimensions != null ? Config.compassDimensions : new String[0];
+        String[] configuredDimensions = Config.getCompassDimensions();
+        if (configuredDimensions == null) {
+            configuredDimensions = new String[0];
+        }
         boolean providersReady = areDimensionProvidersReady();
         Set<Integer> resolvedDimensionIds = new HashSet<Integer>();
 
@@ -68,16 +71,19 @@ public final class CompassRules {
         parsedWithProviders = providersReady;
         parsedConfigHash = computeConfigHash(
             configuredDimensions,
-            Config.compassUseDimensionBlacklist,
-            Config.enableCompassModification);
+            Config.isCompassUseDimensionBlacklist(),
+            Config.isCompassModificationEnabled());
     }
 
     private static void ensureParsedDimensions() {
-        String[] configuredDimensions = Config.compassDimensions != null ? Config.compassDimensions : new String[0];
+        String[] configuredDimensions = Config.getCompassDimensions();
+        if (configuredDimensions == null) {
+            configuredDimensions = new String[0];
+        }
         int configHash = computeConfigHash(
             configuredDimensions,
-            Config.compassUseDimensionBlacklist,
-            Config.enableCompassModification);
+            Config.isCompassUseDimensionBlacklist(),
+            Config.isCompassModificationEnabled());
         boolean providersReady = areDimensionProvidersReady();
         if (configHash != parsedConfigHash || (!parsedWithProviders && providersReady)) {
             reloadFromConfig();

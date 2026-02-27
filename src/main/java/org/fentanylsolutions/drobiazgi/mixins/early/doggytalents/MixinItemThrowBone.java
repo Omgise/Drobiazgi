@@ -1,5 +1,7 @@
 package org.fentanylsolutions.drobiazgi.mixins.early.doggytalents;
 
+import org.fentanylsolutions.drobiazgi.Config;
+import org.fentanylsolutions.drobiazgi.Drobiazgi;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -9,7 +11,7 @@ import doggytalents.item.ItemThrowBone;
 @Mixin(value = ItemThrowBone.class)
 public class MixinItemThrowBone {
 
-    // Add upward arc like vanilla throwables (snowballs, eggs, etc.)
+    // Use configured pitch offset for Doggy Talents throwables.
     @ModifyArg(
         method = "onItemRightClick",
         at = @At(
@@ -18,10 +20,19 @@ public class MixinItemThrowBone {
             remap = false),
         index = 4)
     private float drobiazgi$addPitchOffset(float pitchOffset) {
-        return -20.0f;
+        if (!Config.isDoggyThrowFixEnabled()) {
+            return pitchOffset;
+        }
+
+        float configuredPitchOffset = Config.getDoggyThrowPitchOffset();
+        if (Drobiazgi.isDebugMode()) {
+            Drobiazgi
+                .debug("Doggy throw pitchOffset: vanilla=" + pitchOffset + ", configured=" + configuredPitchOffset);
+        }
+        return configuredPitchOffset;
     }
 
-    // Boost throw force from 1.2 to 1.5 (matches vanilla snowball)
+    // Use configured throw force for Doggy Talents throwables.
     @ModifyArg(
         method = "onItemRightClick",
         at = @At(
@@ -30,6 +41,14 @@ public class MixinItemThrowBone {
             remap = false),
         index = 5)
     private float drobiazgi$boostForce(float force) {
-        return 1.5f;
+        if (!Config.isDoggyThrowFixEnabled()) {
+            return force;
+        }
+
+        float configuredForce = Config.getDoggyThrowForce();
+        if (Drobiazgi.isDebugMode()) {
+            Drobiazgi.debug("Doggy throw force: vanilla=" + force + ", configured=" + configuredForce);
+        }
+        return configuredForce;
     }
 }
