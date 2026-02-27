@@ -41,4 +41,8 @@ public final class Config {
     public static boolean isDoggyThrowFixEnabled() {
         return DoggyTalentsConfig.enableThrowTuningFix;
     }
+
+    public static boolean isDoggyFetchLoopCompatFixEnabled() {
+        return DoggyTalentsConfig.enableFetchLoopCompatFix;
+    }
 }

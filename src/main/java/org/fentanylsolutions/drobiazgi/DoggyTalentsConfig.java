@@ -14,6 +14,11 @@ public final class DoggyTalentsConfig {
     @Sync
     public static boolean enableThrowTuningFix = false;
 
+    @Comment("Enable compatibility fix for ItemPhysic causing Doggy fetch loops.")
+    @DefaultBoolean(true)
+    @Sync
+    public static boolean enableFetchLoopCompatFix = true;
+
     @Comment("Pitch offset used for throw bone and throw stick.")
     @DefaultFloat(-20.0f)
     @RangeFloat(min = -180.0f, max = 180.0f)

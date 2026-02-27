@@ -17,6 +17,11 @@ public class Mixins extends FentMixins {
             .build();
 
         // Doggy Talents Mixins
+        registry.mixin("MixinEntityAIFetch")
+            .modid("doggytalents")
+            .phase(MixinUtil.Phase.EARLY)
+            .build();
+
         registry.mixin("MixinItemThrowBone")
             .modid("doggytalents")
             .phase(MixinUtil.Phase.EARLY)
