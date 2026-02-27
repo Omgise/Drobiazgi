@@ -16,6 +16,12 @@ public class Mixins extends FentMixins {
             .side(MiscUtil.Side.CLIENT)
             .build();
 
+        // Doggy Talents Mixins
+        registry.mixin("MixinItemThrowBone")
+            .modid("doggytalents")
+            .phase(MixinUtil.Phase.EARLY)
+            .build();
+
         // Other Mixins
     }
 
