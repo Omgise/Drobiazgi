@@ -1,4 +1,4 @@
-package org.fentanylsolutions.drobiazgi.mixins.early.doggytalents;
+package org.fentanylsolutions.drobiazgi.mixins.late.doggytalents;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -23,6 +23,16 @@ public class MixinEntityAIFetch {
             value = "INVOKE",
             target = "Lnet/minecraft/entity/item/EntityItem;attackEntityFrom(Lnet/minecraft/util/DamageSource;F)Z"))
     private boolean drobiazgi$forceConsumeFetchedThrowItem(EntityItem entityItem, DamageSource source, float amount) {
+        if (Drobiazgi.isDebugMode()) {
+            ItemStack debugStack = entityItem.getEntityItem();
+            Drobiazgi.debug(
+                "Doggy fetch redirect hit: deadBefore=" + entityItem.isDead
+                    + ", item="
+                    + (debugStack == null ? "<null>" : debugStack.getItem())
+                    + ", meta="
+                    + (debugStack == null ? -1 : debugStack.getItemDamage()));
+        }
+
         boolean handled = entityItem.attackEntityFrom(source, amount);
         if (!Config.isDoggyFetchLoopCompatFixEnabled()) {
             return handled;

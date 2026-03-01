@@ -19,18 +19,18 @@ public class Mixins extends FentMixins {
         // Doggy Talents Mixins
         registry.mixin("MixinEntityAIFetch")
             .modid("doggytalents")
-            .phase(MixinUtil.Phase.EARLY)
+            .phase(MixinUtil.Phase.LATE)
             .build();
 
         registry.mixin("MixinItemThrowBone")
             .modid("doggytalents")
-            .phase(MixinUtil.Phase.EARLY)
+            .phase(MixinUtil.Phase.LATE)
             .build();
 
         // CustomNPCs Mixins
         registry.mixin("MixinNPCSpawning")
             .modid("customnpcs")
-            .phase(MixinUtil.Phase.EARLY)
+            .phase(MixinUtil.Phase.LATE)
             .build();
 
         // Other Mixins

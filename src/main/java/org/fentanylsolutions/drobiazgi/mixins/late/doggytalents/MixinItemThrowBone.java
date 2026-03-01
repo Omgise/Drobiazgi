@@ -1,4 +1,4 @@
-package org.fentanylsolutions.drobiazgi.mixins.early.doggytalents;
+package org.fentanylsolutions.drobiazgi.mixins.late.doggytalents;
 
 import org.fentanylsolutions.drobiazgi.Config;
 import org.fentanylsolutions.drobiazgi.Drobiazgi;

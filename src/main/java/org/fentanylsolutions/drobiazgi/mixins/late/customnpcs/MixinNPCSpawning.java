@@ -1,4 +1,4 @@
-package org.fentanylsolutions.drobiazgi.mixins.early.customnpcs;
+package org.fentanylsolutions.drobiazgi.mixins.late.customnpcs;
 
 import net.minecraft.world.WorldServer;
 
