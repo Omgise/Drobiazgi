@@ -83,4 +83,36 @@ public final class Config {
     public static String[] getCustomNpcsSpawnRules() {
         return CustomNpcsSpawningConfig.rules;
     }
+
+    public static boolean isLeafRegrowthEnabled() {
+        return RegrowableLeavesConfig.enabled;
+    }
+
+    public static int getLeafRegrowthProcessingIntervalTicks() {
+        return RegrowableLeavesConfig.processingIntervalTicks;
+    }
+
+    public static int getLeafRegrowthChecksPerCycle() {
+        return RegrowableLeavesConfig.checksPerCycle;
+    }
+
+    public static int getLeafRegrowthMinDelayTicks() {
+        return RegrowableLeavesConfig.minDelayTicks;
+    }
+
+    public static int getLeafRegrowthMaxDelayTicks() {
+        return RegrowableLeavesConfig.maxDelayTicks;
+    }
+
+    public static int getLeafRegrowthMaxConnectionDepth() {
+        return RegrowableLeavesConfig.maxConnectionDepth;
+    }
+
+    public static int getLeafRegrowthUnloadedChunkRetryTicks() {
+        return RegrowableLeavesConfig.unloadedChunkRetryTicks;
+    }
+
+    public static String[] getLeafRegrowthRules() {
+        return RegrowableLeavesConfig.rules;
+    }
 }
