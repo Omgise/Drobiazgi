@@ -43,11 +43,9 @@ dependencies {
     implementation("org.fentanylsolutions.fentlib:FentLib:0.0.42:dev")
 
     compileOnly(rfg.deobf("curse.maven:doggy-talents-271050:2520348"))
-    // implementation(rfg.deobf("curse.maven:itemphysic-1-7-10-unofficial-1113039:7512507"))
-    // runtimeOnlyNonPublishable("com.creativemd:creativecore:1.4.0-GTNH:dev")
-
-    implementation(rfg.deobf("curse.maven:custom-npcs-221826:2495406"))
+    compileOnly(rfg.deobf("curse.maven:ivtoolkit-224535:2294442"))
+    compileOnly(rfg.deobf("curse.maven:psychedelicraft-legacy-1256222:6547962"))
+    compileOnly(rfg.deobf("curse.maven:custom-npcs-221826:2495406"))
 
     implementation(rfg.deobf("curse.maven:the-lord-of-the-rings-mod-legacy-423748:3646430"))
-    //implementation(rfg.deobf("curse.maven:regrowable-leaves-239173:2273913"))
 }

@@ -33,6 +33,12 @@ public class Mixins extends FentMixins {
             .phase(MixinUtil.Phase.LATE)
             .build();
 
+        // LOTR Mixins
+        registry.mixin("MixinLOTRItemMug")
+            .modid("lotr")
+            .phase(MixinUtil.Phase.LATE)
+            .build();
+
         // Other Mixins
     }
 

@@ -115,4 +115,28 @@ public final class Config {
     public static String[] getLeafRegrowthRules() {
         return RegrowableLeavesConfig.rules;
     }
+
+    public static boolean isPsychedelicraftAlcoholEnabled() {
+        return PsychedelicraftAlcoholConfig.enabled;
+    }
+
+    public static boolean shouldSuppressLotrAlcoholNausea() {
+        return PsychedelicraftAlcoholConfig.suppressLotrNausea;
+    }
+
+    public static int getPsychedelicraftAlcoholDefaultDelayTicks() {
+        return PsychedelicraftAlcoholConfig.defaultDelayTicks;
+    }
+
+    public static double getPsychedelicraftAlcoholDefaultInfluenceSpeed() {
+        return PsychedelicraftAlcoholConfig.defaultInfluenceSpeed;
+    }
+
+    public static double getPsychedelicraftAlcoholDefaultInfluenceSpeedPlus() {
+        return PsychedelicraftAlcoholConfig.defaultInfluenceSpeedPlus;
+    }
+
+    public static String[] getPsychedelicraftAlcoholRules() {
+        return PsychedelicraftAlcoholConfig.rules;
+    }
 }

@@ -44,6 +44,30 @@ Notes:
 - `biomes` accepts both biome names and numeric biome IDs (including LOTR biomes when LOTR is loaded).
 - Spawner looks in world clone storage first, then falls back to global `customnpcs/clones`.
 
+## Psychedelicraft Compat
+If Psychedelicraft is present, Drobiazgi can add Psychedelicraft drug effects to consumed food, drinks, and smoking items through `psychedelicraft_alcohol.rules`.
+
+Defaults:
+- all LOTR alcoholic mugs get the Psychedelicraft `Alcohol` effect, scaled from the mug's built-in alcoholicity
+- the LOTR hobbit pipe gets the Psychedelicraft `Tobacco` effect
+- LOTR mug nausea is suppressed by default while this compat is enabled
+
+Main keys:
+- `item` / `items`: item selector by registry name
+- `drug`: Psychedelicraft drug name, for example `Alcohol` or `Tobacco`
+- `potency` / `maxInfluence`: total Psychedelicraft influence to add
+- `delay`, `speed`, `speedPlus`: timing and ramp values for `DrugInfluence`
+- `meta`: optional metadata filter
+- `requireMod`: only load the rule if that mod is present
+- `lotrAlcoholicMugs=true`: include every LOTR mug with positive alcoholicity
+- `lotrAlcoholicityScale`: derive potency from LOTR mug alcoholicity and mug strength
+
+Examples:
+```text
+id=lotr_alcoholic_mugs;requireMod=lotr;lotrAlcoholicMugs=true;drug=Alcohol;lotrAlcoholicityScale=0.2
+id=lotr_hobbit_pipe;requireMod=lotr;item=lotr:hobbitPipe;drug=Tobacco;potency=0.15;delay=0
+```
+
 ## Dependencies
 * [UniMixins](https://modrinth.com/mod/unimixins) [![curse](images/icons/curse.png)](https://www.curseforge.com/minecraft/mc-mods/unimixins)  [![modrinth](images/icons/modrinth.png)](https://modrinth.com/mod/unimixins/versions) [![git](images/icons/git.png)](https://github.com/LegacyModdingMC/UniMixins/releases)
 * [FentLib](https://modrinth.com/mod/gtnhlib)   [![git](images/icons/git.png)](https://github.com/JackOfNoneTrades/FentLib)
