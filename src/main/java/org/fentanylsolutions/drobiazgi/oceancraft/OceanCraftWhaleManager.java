@@ -2,7 +2,9 @@ package org.fentanylsolutions.drobiazgi.oceancraft;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -13,8 +15,15 @@ import com.Oceancraft.common.EntityWhale;
 import com.Oceancraft.common.Oceancraft;
 
 import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class OceanCraftWhaleManager {
+
+    public enum WhaleVariant {
+        HUMPBACK,
+        NARWHAL,
+        BLUE_WHALE
+    }
 
     private static final String HUMPBACK_ENTITY_NAME = "OCHumpbackWhale";
     private static final String NARWHAL_ENTITY_NAME = "OCNarwhal";
@@ -22,6 +31,9 @@ public final class OceanCraftWhaleManager {
     private static final String HUMPBACK_GLOBAL_NAME = Drobiazgi.MODID + "." + HUMPBACK_ENTITY_NAME;
     private static final String NARWHAL_GLOBAL_NAME = Drobiazgi.MODID + "." + NARWHAL_ENTITY_NAME;
     private static final String BLUE_WHALE_GLOBAL_NAME = Drobiazgi.MODID + "." + BLUE_WHALE_ENTITY_NAME;
+    private static final String HUMPBACK_EGG_ITEM_NAME = "ochumpbackWhaleEgg";
+    private static final String NARWHAL_EGG_ITEM_NAME = "ocnarwhalEgg";
+    private static final String BLUE_WHALE_EGG_ITEM_NAME = "ocblueWhaleEgg";
     private static final int HUMPBACK_ENTITY_ID = 0;
     private static final int NARWHAL_ENTITY_ID = 1;
     private static final int BLUE_WHALE_ENTITY_ID = 2;
@@ -34,9 +46,13 @@ public final class OceanCraftWhaleManager {
     private static final int BLUE_WHALE_EGG_PRIMARY_COLOR = 2504262;
     private static final int BLUE_WHALE_EGG_SECONDARY_COLOR = 10334174;
     private static boolean entitiesRegistered;
+    private static boolean eggItemsRegistered;
     private static int humpbackGlobalEntityId = -1;
     private static int narwhalGlobalEntityId = -1;
     private static int blueWhaleGlobalEntityId = -1;
+    private static Item humpbackWhaleEggItem;
+    private static Item narwhalEggItem;
+    private static Item blueWhaleEggItem;
 
     private OceanCraftWhaleManager() {}
 
@@ -75,6 +91,32 @@ public final class OceanCraftWhaleManager {
         entitiesRegistered = true;
     }
 
+    public static synchronized void registerEggItems() {
+        if (eggItemsRegistered) {
+            return;
+        }
+
+        humpbackWhaleEggItem = new OceanCraftWhaleEggItem(
+            WhaleVariant.HUMPBACK,
+            HUMPBACK_EGG_PRIMARY_COLOR,
+            HUMPBACK_EGG_SECONDARY_COLOR,
+            HUMPBACK_EGG_ITEM_NAME);
+        narwhalEggItem = new OceanCraftWhaleEggItem(
+            WhaleVariant.NARWHAL,
+            NARWHAL_EGG_PRIMARY_COLOR,
+            NARWHAL_EGG_SECONDARY_COLOR,
+            NARWHAL_EGG_ITEM_NAME);
+        blueWhaleEggItem = new OceanCraftWhaleEggItem(
+            WhaleVariant.BLUE_WHALE,
+            BLUE_WHALE_EGG_PRIMARY_COLOR,
+            BLUE_WHALE_EGG_SECONDARY_COLOR,
+            BLUE_WHALE_EGG_ITEM_NAME);
+        GameRegistry.registerItem(humpbackWhaleEggItem, HUMPBACK_EGG_ITEM_NAME);
+        GameRegistry.registerItem(narwhalEggItem, NARWHAL_EGG_ITEM_NAME);
+        GameRegistry.registerItem(blueWhaleEggItem, BLUE_WHALE_EGG_ITEM_NAME);
+        eggItemsRegistered = true;
+    }
+
     public static synchronized void applySpawnEggs() {
         if (!entitiesRegistered) {
             registerCustomEntities();
@@ -89,9 +131,6 @@ public final class OceanCraftWhaleManager {
         }
 
         EntityList.entityEggs.remove(Integer.valueOf(Oceancraft.WhaleId));
-        addSpawnEgg(humpbackGlobalEntityId, HUMPBACK_EGG_PRIMARY_COLOR, HUMPBACK_EGG_SECONDARY_COLOR);
-        addSpawnEgg(narwhalGlobalEntityId, NARWHAL_EGG_PRIMARY_COLOR, NARWHAL_EGG_SECONDARY_COLOR);
-        addSpawnEgg(blueWhaleGlobalEntityId, BLUE_WHALE_EGG_PRIMARY_COLOR, BLUE_WHALE_EGG_SECONDARY_COLOR);
     }
 
     public static void addNaturalWhaleSpawns(int baseWeight, int minGroupCount, int maxGroupCount,
@@ -155,6 +194,11 @@ public final class OceanCraftWhaleManager {
         return replacement;
     }
 
+    public static EntityLiving spawnWhaleFromEgg(World world, WhaleVariant whaleVariant) {
+        Entity entity = createWhale(world, whaleVariant);
+        return entity instanceof EntityLiving ? (EntityLiving) entity : null;
+    }
+
     private static void addScaledSpawn(Class<? extends EntityWhale> entityClass, int baseWeight, int relativeWeight,
         int totalRelativeWeight, int minGroupCount, int maxGroupCount, EnumCreatureType creatureType,
         BiomeGenBase... biomes) {
@@ -184,25 +228,38 @@ public final class OceanCraftWhaleManager {
         int pick = world.rand.nextInt(totalRelativeWeight);
         pick -= Config.getOceanCraftHumpbackWeight();
         if (pick < 0 && Config.getOceanCraftHumpbackWeight() > 0) {
-            return new EntityHumpbackWhale(world);
+            return createWhale(world, WhaleVariant.HUMPBACK);
         }
 
         pick -= Config.getOceanCraftNarwhalWeight();
         if (pick < 0 && Config.getOceanCraftNarwhalWeight() > 0) {
-            return new EntityNarwhal(world);
+            return createWhale(world, WhaleVariant.NARWHAL);
         }
 
         if (Config.getOceanCraftBlueWhaleWeight() > 0) {
-            return new EntityBlueWhale(world);
+            return createWhale(world, WhaleVariant.BLUE_WHALE);
         }
 
         if (Config.getOceanCraftNarwhalWeight() > 0) {
-            return new EntityNarwhal(world);
+            return createWhale(world, WhaleVariant.NARWHAL);
         }
         if (Config.getOceanCraftHumpbackWeight() > 0) {
-            return new EntityHumpbackWhale(world);
+            return createWhale(world, WhaleVariant.HUMPBACK);
         }
         return null;
+    }
+
+    private static Entity createWhale(World world, WhaleVariant whaleVariant) {
+        switch (whaleVariant) {
+            case HUMPBACK:
+                return new EntityHumpbackWhale(world);
+            case NARWHAL:
+                return new EntityNarwhal(world);
+            case BLUE_WHALE:
+                return new EntityBlueWhale(world);
+            default:
+                return null;
+        }
     }
 
     private static int getTotalRelativeWeight() {
@@ -214,15 +271,6 @@ public final class OceanCraftWhaleManager {
         int entityId = EntityRegistry.findGlobalUniqueEntityId();
         EntityRegistry.registerGlobalEntityID(entityClass, globalName, entityId);
         return entityId;
-    }
-
-    private static void addSpawnEgg(int entityId, int primaryColor, int secondaryColor) {
-        if (entityId < 0) {
-            return;
-        }
-
-        EntityList.entityEggs
-            .put(Integer.valueOf(entityId), new EntityList.EntityEggInfo(entityId, primaryColor, secondaryColor));
     }
 
     private static void removeSpawnEgg(int entityId) {

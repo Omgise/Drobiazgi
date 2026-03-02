@@ -1,3 +1,6 @@
 entity.drobiazgi.OCHumpbackWhale.name=Humpback Whale
 entity.drobiazgi.OCNarwhal.name=Narwhal
 entity.drobiazgi.OCBlueWhale.name=Blue Whale
+item.ochumpbackWhaleEgg.name=Humpback Whale Egg
+item.ocnarwhalEgg.name=Narwhal Egg
+item.ocblueWhaleEgg.name=Blue Whale Egg

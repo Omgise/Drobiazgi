@@ -40,6 +40,10 @@ public class CommonProxy {
 
         Config.postConfiguration();
         Drobiazgi.LOG.info("I am Drobiazgi at version {}", Tags.VERSION);
+
+        if (Loader.isModLoaded("Oceancraft")) {
+            OceanCraftWhaleManager.registerEggItems();
+        }
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
