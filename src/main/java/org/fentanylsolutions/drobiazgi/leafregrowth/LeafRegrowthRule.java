@@ -59,9 +59,9 @@ final class LeafRegrowthRule {
     }
 
     int normalizeLeafMeta(int meta) {
-        // Strip decay flags (bits 2-3), set check_decay (bit 2) so regrown leaves
-        // can naturally decay if the tree is later removed.
-        return (meta & 3) | 4;
+        // Clear no_decay (0x4) and set check_decay (0x8) so regrown leaves behave
+        // like natural leaves and can disappear after the supporting logs are gone.
+        return (meta & ~4) | 8;
     }
 
     private boolean isMetadataAllowed(int meta) {
