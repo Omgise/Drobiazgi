@@ -25,7 +25,7 @@ public class MixinTextureCompass {
             return world.getSpawnPoint();
         }
 
-        return new ChunkCoordinates(MathHelper.floor_double(x), 0, MathHelper.floor_double(z - 1.0D));
+        return new ChunkCoordinates(MathHelper.floor_double(x), 0, MathHelper.floor_double(z) - 1000000);
     }
 
     @Redirect(
