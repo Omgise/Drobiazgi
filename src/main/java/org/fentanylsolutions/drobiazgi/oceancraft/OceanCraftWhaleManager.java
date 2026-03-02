@@ -85,7 +85,6 @@ public final class OceanCraftWhaleManager {
         removeSpawnEgg(blueWhaleGlobalEntityId);
 
         if (!Config.isOceanCraftWhaleSplitEnabled()) {
-            addSpawnEgg(Oceancraft.WhaleId, HUMPBACK_EGG_PRIMARY_COLOR, HUMPBACK_EGG_SECONDARY_COLOR);
             return;
         }
 
