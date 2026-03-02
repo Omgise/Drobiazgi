@@ -30,6 +30,22 @@ public final class Config {
         return BiomeTagsConfig.rules;
     }
 
+    public static boolean isOceanCraftWhaleSplitEnabled() {
+        return OceanCraftWhaleConfig.enableSeparateWhales;
+    }
+
+    public static int getOceanCraftHumpbackWeight() {
+        return OceanCraftWhaleConfig.humpbackWeight;
+    }
+
+    public static int getOceanCraftNarwhalWeight() {
+        return OceanCraftWhaleConfig.narwhalWeight;
+    }
+
+    public static int getOceanCraftBlueWhaleWeight() {
+        return OceanCraftWhaleConfig.blueWhaleWeight;
+    }
+
     public static String[] getCompassDimensions() {
         return CompassConfig.compassDimensions;
     }

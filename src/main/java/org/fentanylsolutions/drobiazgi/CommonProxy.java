@@ -4,6 +4,7 @@ import org.fentanylsolutions.drobiazgi.biometags.BiomeTagRules;
 import org.fentanylsolutions.drobiazgi.customnpcs.CustomNpcNaturalSpawner;
 import org.fentanylsolutions.drobiazgi.leafregrowth.LeafRegrowthManager;
 import org.fentanylsolutions.drobiazgi.leafregrowth.LeafRegrowthRules;
+import org.fentanylsolutions.drobiazgi.oceancraft.OceanCraftWhaleManager;
 import org.fentanylsolutions.drobiazgi.psychedelicraft.PsychedelicraftAlcoholManager;
 import org.fentanylsolutions.drobiazgi.psychedelicraft.PsychedelicraftAlcoholRules;
 
@@ -24,6 +25,7 @@ public class CommonProxy {
         try {
             ConfigurationManager.registerConfig(Config.class);
             ConfigurationManager.registerConfig(BiomeTagsConfig.class);
+            ConfigurationManager.registerConfig(OceanCraftWhaleConfig.class);
             ConfigurationManager.registerConfig(CompassConfig.class);
             ConfigurationManager.registerConfig(DoggyTalentsConfig.class);
             ConfigurationManager.registerConfig(CustomNpcsSpawningConfig.class);
@@ -54,6 +56,10 @@ public class CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         BiomeTagRules.applyConfiguredTags();
         LeafRegrowthRules.reloadFromConfig();
+
+        if (Loader.isModLoaded("Oceancraft")) {
+            OceanCraftWhaleManager.applySpawnEggs();
+        }
 
         if (Loader.isModLoaded("psychedelicraft")) {
             PsychedelicraftAlcoholRules.reloadFromConfig();

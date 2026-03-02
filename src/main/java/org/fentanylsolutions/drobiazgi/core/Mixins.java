@@ -44,6 +44,23 @@ public class Mixins extends FentMixins {
             .phase(MixinUtil.Phase.LATE)
             .build();
 
+        // OceanCraft Mixins
+        registry.mixin("MixinEntityRegisterOceancraft")
+            .modid("Oceancraft")
+            .phase(MixinUtil.Phase.LATE)
+            .build();
+
+        registry.mixin("MixinEntityWhaleItem")
+            .modid("Oceancraft")
+            .phase(MixinUtil.Phase.LATE)
+            .build();
+
+        registry.mixin("MixinClientProxyOceancraft")
+            .modid("Oceancraft")
+            .phase(MixinUtil.Phase.LATE)
+            .side(MiscUtil.Side.CLIENT)
+            .build();
+
         // Other Mixins
     }
 
