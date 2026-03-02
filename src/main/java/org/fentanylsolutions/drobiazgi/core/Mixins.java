@@ -60,6 +60,11 @@ public class Mixins extends FentMixins {
             .phase(MixinUtil.Phase.LATE)
             .build();
 
+        registry.mixin("MixinOceancraftGoDeepEvent")
+            .modid("Oceancraft")
+            .phase(MixinUtil.Phase.LATE)
+            .build();
+
         registry.mixin("MixinClientProxyOceancraft")
             .modid("Oceancraft")
             .phase(MixinUtil.Phase.LATE)

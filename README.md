@@ -21,6 +21,7 @@
 * Configurable leaf regrowth. Broken leaves regrow if still connected to a log
 * Doggy Talents throw fix. Adjustable pitch offset and force for thrown bones/sticks, improves arc when ItemPhysic is installed
 * Configurable split of the OceanCraft Whale mob into three separate mobs
+* OceanCraft compatibility fixes for broken shell worldgen and recursive underwater achievement spam
 * Territorial aggression system for neutral mobs that should occasionally target nearby players
 
 ## Leaf Regrowth
@@ -99,6 +100,11 @@ id=lotr_hobbit_pipe;requireMod=lotr;item=lotr:hobbitPipe;drug=Tobacco;potency=0.
 Adds a short-range, periodic player-targeting goal to configured neutral `EntityCreature` mobs through `territorial_aggression.entities`.
 
 Defaults include LOTR bears, wild boars, and aurochs. Babies stay passive. Entries accept either exact `EntityList` IDs or fully qualified class names.
+
+## OceanCraft Compat
+Adds targeted fixes for two OceanCraft issues:
+- shell worldgen no longer crashes on environments where OceanCraft's `Blocks.sand` field access is invalid
+- the "go deep" underwater achievement no longer recurses through `PlayerEvent` and spam-crashes the server
 
 ## Dependencies
 * [UniMixins](https://modrinth.com/mod/unimixins) [![curse](images/icons/curse.png)](https://www.curseforge.com/minecraft/mc-mods/unimixins)  [![modrinth](images/icons/modrinth.png)](https://modrinth.com/mod/unimixins/versions) [![git](images/icons/git.png)](https://github.com/LegacyModdingMC/UniMixins/releases)
