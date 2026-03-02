@@ -48,4 +48,7 @@ dependencies {
     compileOnly(rfg.deobf("curse.maven:custom-npcs-221826:2495406"))
 
     implementation(rfg.deobf("curse.maven:the-lord-of-the-rings-mod-legacy-423748:3646430"))
+
+    implementation(rfg.deobf("curse.maven:wild-mobs-mod-255711:2727879"))
+    implementation(rfg.deobf("curse.maven:mo-creatures-229260:2628698"))
 }
