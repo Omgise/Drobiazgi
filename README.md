@@ -9,6 +9,7 @@
 [![hub](images/badges/github.png)](https://github.com/JackOfNoneTrades/Drobiazgi/releases)
 [![maven](images/badges/maven.png)](https://maven.fentanylsolutions.org/#/TODO)
 ![forge](images/badges/forge.png)
+[![cord](images/badges/cord.png)](https://discord.gg/xAWCqGrguG)
 
 <!--
 [![modrinth](images/badges/modrinth.png)](https://modrinth.com/mod/waystones-x)
