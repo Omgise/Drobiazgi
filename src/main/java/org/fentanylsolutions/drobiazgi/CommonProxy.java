@@ -7,6 +7,8 @@ import org.fentanylsolutions.drobiazgi.leafregrowth.LeafRegrowthRules;
 import org.fentanylsolutions.drobiazgi.oceancraft.OceanCraftWhaleManager;
 import org.fentanylsolutions.drobiazgi.psychedelicraft.PsychedelicraftAlcoholManager;
 import org.fentanylsolutions.drobiazgi.psychedelicraft.PsychedelicraftAlcoholRules;
+import org.fentanylsolutions.drobiazgi.territorial.TerritorialAggressionManager;
+import org.fentanylsolutions.drobiazgi.territorial.TerritorialAggressionRules;
 
 import com.gtnewhorizon.gtnhlib.config.ConfigException;
 import com.gtnewhorizon.gtnhlib.config.ConfigurationManager;
@@ -26,6 +28,7 @@ public class CommonProxy {
             ConfigurationManager.registerConfig(Config.class);
             ConfigurationManager.registerConfig(BiomeTagsConfig.class);
             ConfigurationManager.registerConfig(OceanCraftWhaleConfig.class);
+            ConfigurationManager.registerConfig(TerritorialAggressionConfig.class);
             ConfigurationManager.registerConfig(CompassConfig.class);
             ConfigurationManager.registerConfig(DoggyTalentsConfig.class);
             ConfigurationManager.registerConfig(CustomNpcsSpawningConfig.class);
@@ -42,6 +45,7 @@ public class CommonProxy {
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
     public void init(FMLInitializationEvent event) {
         LeafRegrowthManager.register();
+        TerritorialAggressionManager.register();
 
         if (Loader.isModLoaded("customnpcs")) {
             CustomNpcNaturalSpawner.register();
@@ -56,6 +60,7 @@ public class CommonProxy {
     public void postInit(FMLPostInitializationEvent event) {
         BiomeTagRules.applyConfiguredTags();
         LeafRegrowthRules.reloadFromConfig();
+        TerritorialAggressionRules.reloadFromConfig();
 
         if (Loader.isModLoaded("Oceancraft")) {
             OceanCraftWhaleManager.applySpawnEggs();

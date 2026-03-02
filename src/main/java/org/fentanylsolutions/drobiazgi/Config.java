@@ -46,6 +46,14 @@ public final class Config {
         return OceanCraftWhaleConfig.blueWhaleWeight;
     }
 
+    public static boolean isTerritorialAggressionEnabled() {
+        return TerritorialAggressionConfig.enabled;
+    }
+
+    public static String[] getTerritorialAggressionEntities() {
+        return TerritorialAggressionConfig.entities;
+    }
+
     public static String[] getCompassDimensions() {
         return CompassConfig.compassDimensions;
     }

@@ -17,6 +17,7 @@
 * Configurable leaf regrowth. Broken leaves regrow if still connected to a log
 * Doggy Talents throw fix. Adjustable pitch offset and force for thrown bones/sticks, improves arc when ItemPhysic is installed
 * Configurable split of the OceanCraft Whale mob into three separate mobs
+* Territorial aggression system for neutral mobs that should occasionally target nearby players
 
 ## Leaf Regrowth
 Tracks broken leaves and replaces them after a configurable delay, as long as the position is still connected to a matching log block through other leaves.
@@ -89,6 +90,11 @@ Examples:
 id=lotr_alcoholic_mugs;requireMod=lotr;lotrAlcoholicMugs=true;drug=Alcohol;lotrAlcoholicityScale=0.2
 id=lotr_hobbit_pipe;requireMod=lotr;item=lotr:hobbitPipe;drug=Tobacco;potency=0.15;delay=0
 ```
+
+## Territorial Aggression
+Adds a short-range, periodic player-targeting goal to configured neutral `EntityCreature` mobs through `territorial_aggression.entities`.
+
+Defaults include LOTR bears, wild boars, and aurochs. Babies stay passive. Entries accept either exact `EntityList` IDs or fully qualified class names.
 
 ## Dependencies
 * [UniMixins](https://modrinth.com/mod/unimixins) [![curse](images/icons/curse.png)](https://www.curseforge.com/minecraft/mc-mods/unimixins)  [![modrinth](images/icons/modrinth.png)](https://modrinth.com/mod/unimixins/versions) [![git](images/icons/git.png)](https://github.com/LegacyModdingMC/UniMixins/releases)
