@@ -10,9 +10,9 @@ public final class CompassConfig {
 
     @Comment({ "Dimension list used by compass filtering.",
         "Accepted values: numeric IDs like \"0\" or exact names resolved by FentLib DimensionUtil." })
-    @DefaultStringList({ "0" })
+    @DefaultStringList({ "0", "MiddleEarth" })
     @Sync
-    public static String[] compassDimensions = new String[] { "0" };
+    public static String[] compassDimensions = new String[] { "0", "MiddleEarth" };
 
     @Comment({ "If true, listed dimensions are blocked from north mode.",
         "If false, north mode is allowed only in listed dimensions." })
