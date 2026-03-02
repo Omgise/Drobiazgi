@@ -1,5 +1,6 @@
 package org.fentanylsolutions.drobiazgi;
 
+import org.fentanylsolutions.drobiazgi.biometags.BiomeTagRules;
 import org.fentanylsolutions.drobiazgi.customnpcs.CustomNpcNaturalSpawner;
 import org.fentanylsolutions.drobiazgi.leafregrowth.LeafRegrowthManager;
 import org.fentanylsolutions.drobiazgi.leafregrowth.LeafRegrowthRules;
@@ -22,6 +23,7 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         try {
             ConfigurationManager.registerConfig(Config.class);
+            ConfigurationManager.registerConfig(BiomeTagsConfig.class);
             ConfigurationManager.registerConfig(CompassConfig.class);
             ConfigurationManager.registerConfig(DoggyTalentsConfig.class);
             ConfigurationManager.registerConfig(CustomNpcsSpawningConfig.class);
@@ -50,6 +52,7 @@ public class CommonProxy {
 
     // postInit "Handle interaction with other mods, complete your setup based on this." (Remove if not needed)
     public void postInit(FMLPostInitializationEvent event) {
+        BiomeTagRules.applyConfiguredTags();
         LeafRegrowthRules.reloadFromConfig();
 
         if (Loader.isModLoaded("psychedelicraft")) {

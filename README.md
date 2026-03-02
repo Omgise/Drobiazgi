@@ -46,6 +46,25 @@ Notes:
 - `water=true` allows spawning on liquid surfaces (water, lava). By default NPCs only spawn on solid ground.
 - Spawner looks in world clone storage first, then falls back to global `customnpcs/clones`.
 
+## Biome Tag Overrides
+Adds Forge `BiomeDictionary` tags during startup through `biome_dictionary_tags.rules`.
+
+Use one rule per line:
+```text
+id=desert_lotr;requireMod=lotr;biomes=Near Harad,Near Harad Red Desert;tags=SANDY,HOT,DRY
+```
+
+Main keys:
+- `biome` / `biomes`: biome selectors by name or numeric ID
+- `tag` / `tags` / `type` / `types`: `BiomeDictionary` tags to add
+- `requireMod`: only apply the rule if that mod is present
+- `enabled`: optional per-rule toggle
+
+Notes:
+- Biome names ignore case and spacing.
+- Use names for LOTR biomes. Their local IDs overlap vanilla biome IDs, so names are the only unambiguous option.
+- Defaults include a set of common LOTR biome mappings for forest, plains, mountains, swamps, deserts, beaches, water, and wastelands.
+
 ## Psychedelicraft Compat
 If Psychedelicraft is present, Drobiazgi can add Psychedelicraft drug effects to consumed food, drinks, and smoking items through `psychedelicraft_alcohol.rules`.
 

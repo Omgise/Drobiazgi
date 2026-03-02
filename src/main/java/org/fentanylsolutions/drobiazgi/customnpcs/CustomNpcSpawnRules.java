@@ -13,6 +13,7 @@ import net.minecraft.world.WorldServer;
 
 import org.fentanylsolutions.drobiazgi.Config;
 import org.fentanylsolutions.drobiazgi.Drobiazgi;
+import org.fentanylsolutions.drobiazgi.util.BiomeResolver;
 import org.fentanylsolutions.fentlib.util.DimensionUtil;
 
 public final class CustomNpcSpawnRules {

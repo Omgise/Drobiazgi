@@ -50,5 +50,6 @@ dependencies {
     implementation(rfg.deobf("curse.maven:the-lord-of-the-rings-mod-legacy-423748:3646430"))
 
     implementation(rfg.deobf("curse.maven:wild-mobs-mod-255711:2727879"))
-    implementation(rfg.deobf("curse.maven:mo-creatures-229260:2628698"))
+    implementation(rfg.deobf("curse.maven:mo-creatures-legacy-957564:6220091"))
+    implementation(rfg.deobf("com.Oceancraft:OceanCraft:1.7.10-1.4"))
 }

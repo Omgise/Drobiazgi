@@ -11,6 +11,11 @@ public class Mixins extends FentMixins {
     @Override
     protected void registerMixins(MixinUtil.Registry registry) {
         // Minecraft Mixins
+        registry.mixin("MixinBiomeDictionary")
+            .modid("minecraftforge")
+            .phase(MixinUtil.Phase.EARLY)
+            .build();
+
         registry.mixin("MixinTextureCompass")
             .phase(MixinUtil.Phase.EARLY)
             .side(MiscUtil.Side.CLIENT)

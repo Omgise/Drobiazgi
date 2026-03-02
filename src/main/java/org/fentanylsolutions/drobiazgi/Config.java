@@ -1,5 +1,6 @@
 package org.fentanylsolutions.drobiazgi;
 
+import org.fentanylsolutions.drobiazgi.biometags.BiomeTagRules;
 import org.fentanylsolutions.drobiazgi.compass.CompassRules;
 import org.fentanylsolutions.drobiazgi.customnpcs.CustomNpcSpawnRules;
 
@@ -16,8 +17,17 @@ public final class Config {
     private Config() {}
 
     public static void postConfiguration() {
+        BiomeTagRules.reloadFromConfig();
         CompassRules.reloadFromConfig();
         CustomNpcSpawnRules.reloadFromConfig();
+    }
+
+    public static boolean isBiomeTaggingEnabled() {
+        return BiomeTagsConfig.enabled;
+    }
+
+    public static String[] getBiomeTagRules() {
+        return BiomeTagsConfig.rules;
     }
 
     public static String[] getCompassDimensions() {
