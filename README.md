@@ -1,6 +1,10 @@
 # Drobiazgi
 
+![logo](images/logo.png)
+
 `Minecraft 1.7.10` mod with different small features and interop fixes.
+
+*drobiazg /ˈdrɔ.bjask/ (Polish): trifle, trinket, small thing*
 
 [![hub](images/badges/github.png)](https://github.com/JackOfNoneTrades/Drobiazgi/releases)
 [![maven](images/badges/maven.png)](https://maven.fentanylsolutions.org/#/TODO)
@@ -99,6 +103,11 @@ Defaults include LOTR bears, wild boars, and aurochs. Babies stay passive. Entri
 ## Dependencies
 * [UniMixins](https://modrinth.com/mod/unimixins) [![curse](images/icons/curse.png)](https://www.curseforge.com/minecraft/mc-mods/unimixins)  [![modrinth](images/icons/modrinth.png)](https://modrinth.com/mod/unimixins/versions) [![git](images/icons/git.png)](https://github.com/LegacyModdingMC/UniMixins/releases)
 * [FentLib](https://modrinth.com/mod/gtnhlib)   [![git](images/icons/git.png)](https://github.com/JackOfNoneTrades/FentLib)
+
+## Credits
+* [GT:NH buildscript](https://github.com/GTNewHorizons/ExampleMod1.7.10)
+* Logo item image from [malcolmriley/unused-textures](https://github.com/malcolmriley/unused-textures) ([CC-BY-4.0](https://github.com/malcolmriley/unused-textures/blob/master/LICENSE))
+* [Background image](https://www.pinterest.com/pin/minecraft-aesthetic-night--727612883561928177/)
 
 ## License
 

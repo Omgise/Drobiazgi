@@ -10,7 +10,15 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
-@Mod(modid = Drobiazgi.MODID, version = Tags.VERSION, name = "MyMod", acceptedMinecraftVersions = "[1.7.10]")
+@Mod(
+    modid = Drobiazgi.MODID,
+    version = Tags.VERSION,
+    name = "MyMod",
+    acceptedMinecraftVersions = "[1.7.10]",
+    customProperties = { @Mod.CustomProperty(k = "license", v = "LGPLv3+SNEED"),
+        @Mod.CustomProperty(k = "issueTrackerUrl", v = "https://github.com/JackOfNoneTrades/Drobiazgi/issues"),
+        @Mod.CustomProperty(k = "iconFile", v = "assets/drobiazgi/logo.png"),
+        @Mod.CustomProperty(k = "backgroundFile", v = "assets/drobiazgi/background.png") })
 public class Drobiazgi {
 
     public static final String MODID = "drobiazgi";
