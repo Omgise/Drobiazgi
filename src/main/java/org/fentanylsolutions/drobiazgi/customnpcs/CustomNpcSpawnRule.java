@@ -34,10 +34,13 @@ final class CustomNpcSpawnRule {
     private final int maxLight;
     private final int minY;
     private final int maxY;
+    private final boolean allowWater;
+    private final boolean allowCave;
 
     CustomNpcSpawnRule(String id, boolean enabled, int cloneTab, String cloneName, int weight, double chance,
         int minGroupSize, int maxGroupSize, Set<Integer> dimensions, FilterMode dimensionMode, Set<Integer> biomes,
-        FilterMode biomeMode, TimeMode timeMode, int minLight, int maxLight, int minY, int maxY) {
+        FilterMode biomeMode, TimeMode timeMode, int minLight, int maxLight, int minY, int maxY, boolean allowWater,
+        boolean allowCave) {
         this.id = id;
         this.enabled = enabled;
         this.cloneTab = cloneTab;
@@ -55,6 +58,8 @@ final class CustomNpcSpawnRule {
         this.maxLight = maxLight;
         this.minY = minY;
         this.maxY = maxY;
+        this.allowWater = allowWater;
+        this.allowCave = allowCave;
     }
 
     String getId() {
@@ -86,6 +91,26 @@ final class CustomNpcSpawnRule {
             return minGroupSize;
         }
         return minGroupSize + random.nextInt(maxGroupSize - minGroupSize + 1);
+    }
+
+    boolean isWaterAllowed() {
+        return allowWater;
+    }
+
+    boolean isCaveRule() {
+        return allowCave;
+    }
+
+    int getMinY() {
+        return minY;
+    }
+
+    int getMaxY() {
+        return maxY;
+    }
+
+    boolean matchesIgnoringPosition(WorldServer world, int biomeId) {
+        return matchesDimension(world.provider.dimensionId) && matchesBiome(biomeId) && matchesTime(world);
     }
 
     boolean matches(WorldServer world, int biomeId, int y, int lightLevel) {
@@ -166,6 +191,10 @@ final class CustomNpcSpawnRule {
             + ", light="
             + minLight
             + "-"
-            + maxLight;
+            + maxLight
+            + ", water="
+            + allowWater
+            + ", cave="
+            + allowCave;
     }
 }

@@ -59,7 +59,8 @@ public final class CustomNpcsSpawningConfig {
 
     @Comment({ "Spawn rules. One rule per line. Keys are key=value separated by ';'.",
         "Required keys: clone, tab. Optional keys: id, enabled, weight, chance, group, dims, dimMode, biomes,",
-        "biomeMode, time, light, y.",
+        "biomeMode, time, light, y, water, cave.",
+        "water=true allows spawning on liquid surfaces. cave=true spawns underground instead of at surface.",
         "Biome selectors in 'biomes' support both numeric IDs and names, including LOTR biome names when LOTR is loaded.",
         "Example:", "id=bandit_plains;clone=Bandit;tab=1;weight=10;chance=0.35;group=1-2;dims=0;dimMode=whitelist;",
         "biomes=Plains,Forest,4;biomeMode=whitelist;time=day;light=7-15;y=62-120" })

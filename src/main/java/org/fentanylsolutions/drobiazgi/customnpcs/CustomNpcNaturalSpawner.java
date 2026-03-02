@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -108,6 +109,8 @@ public final class CustomNpcNaturalSpawner {
         int offsetNoBiome = 0;
         int offsetRuleRejected = 0;
         int nullEntitySpawn = 0;
+        int caveNotFound = 0;
+        int waterRejected = 0;
         int detailedNoMatchLogsLeft = 4;
         int detailedInvalidPosLogsLeft = 4;
         int detailedChanceLogsLeft = 4;
@@ -174,7 +177,11 @@ public final class CustomNpcNaturalSpawner {
                                 + ", offsetRuleRejected="
                                 + offsetRuleRejected
                                 + ", nullEntitySpawn="
-                                + nullEntitySpawn);
+                                + nullEntitySpawn
+                                + ", caveNotFound="
+                                + caveNotFound
+                                + ", waterRejected="
+                                + waterRejected);
                     }
                     return;
                 }
@@ -241,7 +248,20 @@ public final class CustomNpcNaturalSpawner {
                     int offsetZ = world.rand.nextInt(5) - world.rand.nextInt(5);
                     int x = spawnPosition.x + offsetX;
                     int z = spawnPosition.z + offsetZ;
-                    int y = world.getTopSolidOrLiquidBlock(x, z);
+                    int y;
+                    if (rule.isCaveRule()) {
+                        y = findCaveY(world, x, z, rule.getMinY(), rule.getMaxY());
+                        if (y < 0) {
+                            caveNotFound++;
+                            continue;
+                        }
+                    } else {
+                        y = world.getTopSolidOrLiquidBlock(x, z);
+                    }
+                    if (!rule.isWaterAllowed() && isLiquidAt(world, x, y - 1, z)) {
+                        waterRejected++;
+                        continue;
+                    }
                     if (!isValidSpawnPosition(world, x, y, z, minPlayerDistance)) {
                         invalidSpawnPosition++;
                         if (debug && detailedInvalidPosLogsLeft-- > 0) {
@@ -324,7 +344,11 @@ public final class CustomNpcNaturalSpawner {
                     + ", offsetRuleRejected="
                     + offsetRuleRejected
                     + ", nullEntitySpawn="
-                    + nullEntitySpawn);
+                    + nullEntitySpawn
+                    + ", caveNotFound="
+                    + caveNotFound
+                    + ", waterRejected="
+                    + waterRejected);
         }
     }
 
@@ -445,6 +469,47 @@ public final class CustomNpcNaturalSpawner {
             }
         }
         return count;
+    }
+
+    private static int findCaveY(WorldServer world, int x, int z, int minY, int maxY) {
+        int range = maxY - minY;
+        if (range <= 0) {
+            return checkCaveAt(world, x, z, minY) ? minY : -1;
+        }
+
+        for (int attempt = 0; attempt < 3; attempt++) {
+            int startY = minY + world.rand.nextInt(range + 1);
+            for (int y = startY; y >= minY; y--) {
+                if (checkCaveAt(world, x, z, y)) {
+                    return y;
+                }
+            }
+        }
+        return -1;
+    }
+
+    private static boolean checkCaveAt(WorldServer world, int x, int z, int y) {
+        if (y <= 0 || y + 1 >= world.getActualHeight()) {
+            return false;
+        }
+        if (!world.blockExists(x, y, z)) {
+            return false;
+        }
+        Block below = world.getBlock(x, y - 1, z);
+        if (!below.getMaterial()
+            .isSolid()) {
+            return false;
+        }
+        return world.isAirBlock(x, y, z) && world.isAirBlock(x, y + 1, z);
+    }
+
+    private static boolean isLiquidAt(WorldServer world, int x, int y, int z) {
+        if (y < 0 || !world.blockExists(x, y, z)) {
+            return false;
+        }
+        return world.getBlock(x, y, z)
+            .getMaterial()
+            .isLiquid();
     }
 
     private static final class SpawnPosition {

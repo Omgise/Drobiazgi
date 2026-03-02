@@ -42,6 +42,8 @@ id=desert_frequent;enabled=true;clone=MYNPC;tab=1;weight=200;chance=1.0;group=2-
 
 Notes:
 - `biomes` accepts both biome names and numeric biome IDs (including LOTR biomes when LOTR is loaded).
+- `cave=true` spawns NPCs underground in caves instead of at the surface. Useful with a low `y` range and low `light` range.
+- `water=true` allows spawning on liquid surfaces (water, lava). By default NPCs only spawn on solid ground.
 - Spawner looks in world clone storage first, then falls back to global `customnpcs/clones`.
 
 ## Psychedelicraft Compat

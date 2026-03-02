@@ -64,10 +64,12 @@ public final class CustomNpcSpawnRules {
             if (!rule.isEnabled()) {
                 continue;
             }
-            if (!rule.matches(world, biomeId, y, lightLevel)) {
+            if (rule.getWeight() <= 0) {
                 continue;
             }
-            if (rule.getWeight() <= 0) {
+            boolean matched = rule.isCaveRule() ? rule.matchesIgnoringPosition(world, biomeId)
+                : rule.matches(world, biomeId, y, lightLevel);
+            if (!matched) {
                 continue;
             }
 
@@ -131,7 +133,9 @@ public final class CustomNpcSpawnRules {
             if (rule.matchesLight(lightLevel)) {
                 lightMatch++;
             }
-            if (rule.getWeight() > 0 && rule.matches(world, biomeId, y, lightLevel)) {
+            boolean matched = rule.isCaveRule() ? rule.matchesIgnoringPosition(world, biomeId)
+                : rule.matches(world, biomeId, y, lightLevel);
+            if (rule.getWeight() > 0 && matched) {
                 fullMatch++;
             }
         }
@@ -182,6 +186,8 @@ public final class CustomNpcSpawnRules {
         int maxLight = 15;
         int minY = 0;
         int maxY = 255;
+        boolean allowWater = false;
+        boolean allowCave = false;
 
         String[] entries = rawLine.split(";");
         for (String entry : entries) {
@@ -253,6 +259,13 @@ public final class CustomNpcSpawnRules {
                     minY = clamp(yRange[0], 0, 255);
                     maxY = clamp(yRange[1], 0, 255);
                     break;
+                case "water":
+                    allowWater = parseBoolean(value, allowWater);
+                    break;
+                case "cave":
+                case "underground":
+                    allowCave = parseBoolean(value, allowCave);
+                    break;
                 default:
                     Drobiazgi.LOG.warn("Unknown CustomNPC spawn rule key '{}', value '{}'.", key, value);
                     break;
@@ -297,7 +310,9 @@ public final class CustomNpcSpawnRules {
             minLight,
             maxLight,
             minY,
-            maxY);
+            maxY,
+            allowWater,
+            allowCave);
     }
 
     private static Set<Integer> parseDimensions(String value, String ruleId) {
