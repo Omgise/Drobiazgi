@@ -7,6 +7,9 @@ import com.Oceancraft.common.Oceancraft;
 
 public final class OceanCraftWorldgenCompat {
 
+    private static Block cachedVanillaSandBlock;
+    private static boolean resolvedVanillaSandBlock;
+
     private OceanCraftWorldgenCompat() {}
 
     public static void generateShell(Object generator, World world, int x, int y, int z) {
@@ -49,7 +52,16 @@ public final class OceanCraftWorldgenCompat {
         return null;
     }
 
-    private static Block getVanillaSandBlock() {
+    public static Block getVanillaSandBlock() {
+        if (!resolvedVanillaSandBlock) {
+            cachedVanillaSandBlock = resolveVanillaSandBlock();
+            resolvedVanillaSandBlock = true;
+        }
+
+        return cachedVanillaSandBlock;
+    }
+
+    private static Block resolveVanillaSandBlock() {
         Block sandBlock = Block.getBlockFromName("minecraft:sand");
         if (sandBlock != null) {
             return sandBlock;

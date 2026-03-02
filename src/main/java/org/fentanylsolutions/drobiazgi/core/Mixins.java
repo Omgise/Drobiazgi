@@ -60,6 +60,31 @@ public class Mixins extends FentMixins {
             .phase(MixinUtil.Phase.LATE)
             .build();
 
+        registry.mixin("MixinWorldGenQuickSand")
+            .modid("Oceancraft")
+            .phase(MixinUtil.Phase.LATE)
+            .build();
+
+        registry.mixin("MixinBlockQuickSand")
+            .modid("Oceancraft")
+            .phase(MixinUtil.Phase.LATE)
+            .build();
+
+        registry.mixin("MixinBlockShells")
+            .modid("Oceancraft")
+            .phase(MixinUtil.Phase.LATE)
+            .build();
+
+        registry.mixin("MixinItemShells")
+            .modid("Oceancraft")
+            .phase(MixinUtil.Phase.LATE)
+            .build();
+
+        registry.mixin("MixinWorldGenPillarHouse")
+            .modid("Oceancraft")
+            .phase(MixinUtil.Phase.LATE)
+            .build();
+
         registry.mixin("MixinOceancraftGoDeepEvent")
             .modid("Oceancraft")
             .phase(MixinUtil.Phase.LATE)
