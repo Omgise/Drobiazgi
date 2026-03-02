@@ -16,6 +16,7 @@
 * Alternate Custom NPCs spawning system, compatible with LOTR biomes
 * Configurable leaf regrowth. Broken leaves regrow if still connected to a log
 * Doggy Talents throw fix. Adjustable pitch offset and force for thrown bones/sticks, improves arc when ItemPhysic is installed
+* Configurable split of the OceanCraft Whale mob into three separate mobs
 
 ## Leaf Regrowth
 Tracks broken leaves and replaces them after a configurable delay, as long as the position is still connected to a matching log block through other leaves.
