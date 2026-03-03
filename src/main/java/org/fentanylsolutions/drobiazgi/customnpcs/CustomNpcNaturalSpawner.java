@@ -480,14 +480,15 @@ public final class CustomNpcNaturalSpawner {
             return checkCaveAt(world, x, z, minY) ? minY : -1;
         }
 
-        for (int attempt = 0; attempt < 3; attempt++) {
-            int startY = minY + world.rand.nextInt(range + 1);
-            for (int y = startY; y >= minY; y--) {
-                if (checkCaveAt(world, x, z, y)) {
-                    return y;
-                }
+        int span = range + 1;
+        int startOffset = world.rand.nextInt(span);
+        for (int offset = 0; offset < span; offset++) {
+            int y = maxY - ((startOffset + offset) % span);
+            if (checkCaveAt(world, x, z, y)) {
+                return y;
             }
         }
+
         return -1;
     }
 
