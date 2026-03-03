@@ -258,9 +258,12 @@ public final class CustomNpcNaturalSpawner {
                     } else {
                         y = world.getTopSolidOrLiquidBlock(x, z);
                     }
-                    if (!rule.isWaterAllowed() && isLiquidAt(world, x, y - 1, z)) {
-                        waterRejected++;
-                        continue;
+                    if (isLiquidAt(world, x, y - 1, z)) {
+                        if (!rule.isWaterAllowed()) {
+                            waterRejected++;
+                            continue;
+                        }
+                        y--;
                     }
                     if (!isValidSpawnPosition(world, x, y, z, minPlayerDistance)) {
                         invalidSpawnPosition++;
