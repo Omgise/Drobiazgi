@@ -52,6 +52,7 @@ Notes:
 - `biomes` accepts both biome names and numeric biome IDs (including LOTR biomes when LOTR is loaded).
 - `cave=true` spawns NPCs underground in caves instead of at the surface. Useful with a low `y` range and low `light` range.
 - `water=true` allows spawning on liquid surfaces (water, lava). By default NPCs only spawn on solid ground.
+- `requireWater=true` requires the final spawn position to be submerged in a surface-connected water column. This is the correct option for fish.
 - Spawner looks in world clone storage first, then falls back to global `customnpcs/clones`.
 
 ## Biome Tag Overrides

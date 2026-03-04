@@ -188,6 +188,7 @@ public final class CustomNpcSpawnRules {
         int minY = 0;
         int maxY = 255;
         boolean allowWater = false;
+        boolean requireWater = false;
         boolean allowCave = false;
 
         String[] entries = rawLine.split(";");
@@ -263,6 +264,10 @@ public final class CustomNpcSpawnRules {
                 case "water":
                     allowWater = parseBoolean(value, allowWater);
                     break;
+                case "requirewater":
+                case "underwater":
+                    requireWater = parseBoolean(value, requireWater);
+                    break;
                 case "cave":
                 case "underground":
                     allowCave = parseBoolean(value, allowCave);
@@ -293,6 +298,9 @@ public final class CustomNpcSpawnRules {
             minY = maxY;
             maxY = tmp;
         }
+        if (requireWater) {
+            allowWater = true;
+        }
 
         return new CustomNpcSpawnRule(
             id,
@@ -313,6 +321,7 @@ public final class CustomNpcSpawnRules {
             minY,
             maxY,
             allowWater,
+            requireWater,
             allowCave);
     }
 

@@ -255,10 +255,16 @@ public final class CustomNpcNaturalSpawner {
                             caveNotFound++;
                             continue;
                         }
+                    } else if (rule.isWaterRequired()) {
+                        y = findSurfaceWaterY(world, x, z, rule.getMinY(), rule.getMaxY());
+                        if (y < 0) {
+                            waterRejected++;
+                            continue;
+                        }
                     } else {
                         y = world.getTopSolidOrLiquidBlock(x, z);
                     }
-                    if (isLiquidAt(world, x, y - 1, z)) {
+                    if (!rule.isWaterRequired() && isLiquidAt(world, x, y - 1, z)) {
                         if (!rule.isWaterAllowed()) {
                             waterRejected++;
                             continue;
@@ -490,6 +496,31 @@ public final class CustomNpcNaturalSpawner {
         }
 
         return -1;
+    }
+
+    private static int findSurfaceWaterY(WorldServer world, int x, int z, int minY, int maxY) {
+        int baseY = world.getTopSolidOrLiquidBlock(x, z);
+        if (baseY <= 0 || baseY >= world.getActualHeight() || !isLiquidAt(world, x, baseY, z)) {
+            return -1;
+        }
+
+        int bottomY = baseY;
+        while (bottomY > 0 && isLiquidAt(world, x, bottomY - 1, z)) {
+            bottomY--;
+        }
+
+        int topY = baseY;
+        while (topY + 1 < world.getActualHeight() && isLiquidAt(world, x, topY + 1, z)) {
+            topY++;
+        }
+
+        int minCandidateY = Math.max(bottomY, minY);
+        int maxCandidateY = Math.min(topY - 1, maxY);
+        if (minCandidateY > maxCandidateY) {
+            return -1;
+        }
+
+        return minCandidateY + world.rand.nextInt(maxCandidateY - minCandidateY + 1);
     }
 
     private static boolean checkCaveAt(WorldServer world, int x, int z, int y) {

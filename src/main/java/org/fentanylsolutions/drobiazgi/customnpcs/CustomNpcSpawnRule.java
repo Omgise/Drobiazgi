@@ -35,12 +35,13 @@ final class CustomNpcSpawnRule {
     private final int minY;
     private final int maxY;
     private final boolean allowWater;
+    private final boolean requireWater;
     private final boolean allowCave;
 
     CustomNpcSpawnRule(String id, boolean enabled, int cloneTab, String cloneName, int weight, double chance,
         int minGroupSize, int maxGroupSize, Set<Integer> dimensions, FilterMode dimensionMode, Set<Integer> biomes,
         FilterMode biomeMode, TimeMode timeMode, int minLight, int maxLight, int minY, int maxY, boolean allowWater,
-        boolean allowCave) {
+        boolean requireWater, boolean allowCave) {
         this.id = id;
         this.enabled = enabled;
         this.cloneTab = cloneTab;
@@ -59,6 +60,7 @@ final class CustomNpcSpawnRule {
         this.minY = minY;
         this.maxY = maxY;
         this.allowWater = allowWater;
+        this.requireWater = requireWater;
         this.allowCave = allowCave;
     }
 
@@ -95,6 +97,10 @@ final class CustomNpcSpawnRule {
 
     boolean isWaterAllowed() {
         return allowWater;
+    }
+
+    boolean isWaterRequired() {
+        return requireWater;
     }
 
     boolean isCaveRule() {
@@ -194,6 +200,8 @@ final class CustomNpcSpawnRule {
             + maxLight
             + ", water="
             + allowWater
+            + ", requireWater="
+            + requireWater
             + ", cave="
             + allowCave;
     }
