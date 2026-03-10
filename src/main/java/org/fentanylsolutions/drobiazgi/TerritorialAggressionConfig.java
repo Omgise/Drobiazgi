@@ -18,11 +18,12 @@ public final class TerritorialAggressionConfig {
         "Accepted values: exact entity IDs from EntityList or fully qualified class names.",
         "Adults only. Matching babies stay passive.",
         "The goal uses a periodic target check and half of normal follow range." })
-    @DefaultStringList({ "lotr.common.entity.animal.LOTREntityBear", "lotr.common.entity.animal.LOTREntityWildBoar",
-        "lotr.common.entity.animal.LOTREntityAurochs" })
+    @DefaultStringList({ "lotr.common.entity.animal.LOTREntityBear", "lotr.common.entity.animal.LOTREntityLionBase",
+        "lotr.common.entity.animal.LOTREntityWildBoar", "lotr.common.entity.animal.LOTREntityAurochs" })
     @Sync
     public static String[] entities = { "lotr.common.entity.animal.LOTREntityBear",
-        "lotr.common.entity.animal.LOTREntityWildBoar", "lotr.common.entity.animal.LOTREntityAurochs" };
+        "lotr.common.entity.animal.LOTREntityLionBase", "lotr.common.entity.animal.LOTREntityWildBoar",
+        "lotr.common.entity.animal.LOTREntityAurochs" };
 
     private TerritorialAggressionConfig() {}
 }

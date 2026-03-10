@@ -49,6 +49,11 @@ public class Mixins extends FentMixins {
             .phase(MixinUtil.Phase.LATE)
             .build();
 
+        registry.mixin("MixinLOTREntityLion")
+            .modid("lotr")
+            .phase(MixinUtil.Phase.LATE)
+            .build();
+
         registry.mixin("MixinLOTRTileEntityMobSpawnerRenderer")
             .modid("lotr")
             .phase(MixinUtil.Phase.LATE)
