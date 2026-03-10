@@ -29,7 +29,7 @@ public abstract class MixinLOTREntityBear extends EntityAnimal {
     }
 
     // Territorial targeting sets an attack target, but LOTR bears only add their attack AI while hostileTick is active.
-    @Inject(method = "onLivingUpdate", at = @At("TAIL"), remap = false)
+    @Inject(method = "onLivingUpdate", at = @At("TAIL"))
     private void drobiazgi$refreshTerritorialHostility(CallbackInfo ci) {
         if (worldObj.isRemote || !Config.isTerritorialAggressionEnabled()
             || isChild()
