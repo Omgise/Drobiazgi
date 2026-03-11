@@ -60,6 +60,12 @@ public class Mixins extends FentMixins {
             .side(MiscUtil.Side.CLIENT)
             .build();
 
+        // MoCreatures Mixins
+        registry.mixin("MixinMoCEntityAnimal")
+            .modid("MoCreatures")
+            .phase(MixinUtil.Phase.LATE)
+            .build();
+
         // OceanCraft Mixins
         registry.mixin("MixinEntityRegisterOceancraft")
             .modid("Oceancraft")
